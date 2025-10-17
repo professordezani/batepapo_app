@@ -1,9 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class LoginPage extends StatelessWidget {
 
-  void logar(BuildContext context) {
-    // Receber o e-mail, senha, validar e então navegar...
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+  final TextEditingController emailCtrl = TextEditingController();
+  final TextEditingController senhaCtrl = TextEditingController();
+
+  void logar(BuildContext context) async{
+    
+    await _auth.signInWithEmailAndPassword(
+      email: emailCtrl.text,
+      password: senhaCtrl.text
+    );
+
     Navigator.pushNamed(context, "/chat");
   }
 
@@ -21,6 +31,7 @@ class LoginPage extends StatelessWidget {
           spacing: 10,
           children: [
             TextField(
+              controller: emailCtrl,
               decoration: InputDecoration(
                 labelText: "E-mail",
                 // filled: true,
@@ -30,6 +41,7 @@ class LoginPage extends StatelessWidget {
               keyboardType: TextInputType.emailAddress,
             ),
             TextField(
+              controller: senhaCtrl,
               obscureText: true,
               decoration: InputDecoration(
                   labelText: "Password",

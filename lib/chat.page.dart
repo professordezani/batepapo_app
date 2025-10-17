@@ -1,8 +1,12 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class ChatPage extends StatelessWidget {
 
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+
   void deslogar(BuildContext context) {
+    _auth.signOut();
     Navigator.pop(context);
     // Navigator.of(context)..pop()..pop();
   }
@@ -11,7 +15,7 @@ class ChatPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Chat"),
+        title: Text(_auth.currentUser!.email ?? "Chat"),
         actions: [
           IconButton(
             onPressed: () => deslogar(context),
@@ -27,98 +31,9 @@ class ChatPage extends StatelessWidget {
               children: [
                 ListTile(
                   onTap: () {},
-                  leading: CircleAvatar(),
-                  title: Text("Nome do usuário"),
-                  subtitle: Text("Mensagem enviada pelo usuário"),
-                  trailing: Text("2 min."),
-                ),
-                ListTile(
-                  onTap: () {},
-                  leading: CircleAvatar(),
-                  title: Text("Nome do usuário"),
-                  subtitle: Text("Mensagem enviada pelo usuário"),
-                  trailing: Text("2 min."),
-                ),
-                ListTile(
-                  onTap: () {},
-                  leading: CircleAvatar(),
-                  title: Text("Nome do usuário"),
-                  subtitle: Text("Mensagem enviada pelo usuário"),
-                  trailing: Text("2 min."),
-                ),
-                ListTile(
-                  onTap: () {},
-                  leading: CircleAvatar(),
-                  title: Text("Nome do usuário"),
-                  subtitle: Text("Mensagem enviada pelo usuário"),
-                  trailing: Text("2 min."),
-                ),
-                ListTile(
-                  onTap: () {},
-                  leading: CircleAvatar(),
-                  title: Text("Nome do usuário"),
-                  subtitle: Text("Mensagem enviada pelo usuário"),
-                  trailing: Text("2 min."),
-                ),
-                ListTile(
-                  onTap: () {},
-                  leading: CircleAvatar(),
-                  title: Text("Nome do usuário"),
-                  subtitle: Text("Mensagem enviada pelo usuário"),
-                  trailing: Text("2 min."),
-                ),
-                ListTile(
-                  onTap: () {},
-                  leading: CircleAvatar(),
-                  title: Text("Nome do usuário"),
-                  subtitle: Text("Mensagem enviada pelo usuário"),
-                  trailing: Text("2 min."),
-                ),
-                ListTile(
-                  onTap: () {},
-                  leading: CircleAvatar(),
-                  title: Text("Nome do usuário"),
-                  subtitle: Text("Mensagem enviada pelo usuário"),
-                  trailing: Text("2 min."),
-                ),
-                ListTile(
-                  onTap: () {},
-                  leading: CircleAvatar(),
-                  title: Text("Nome do usuário"),
-                  subtitle: Text("Mensagem enviada pelo usuário"),
-                  trailing: Text("2 min."),
-                ),
-                ListTile(
-                  onTap: () {},
-                  leading: CircleAvatar(),
-                  title: Text("Nome do usuário"),
-                  subtitle: Text("Mensagem enviada pelo usuário"),
-                  trailing: Text("2 min."),
-                ),
-                ListTile(
-                  onTap: () {},
-                  leading: CircleAvatar(),
-                  title: Text("Nome do usuário"),
-                  subtitle: Text("Mensagem enviada pelo usuário"),
-                  trailing: Text("2 min."),
-                ),
-                ListTile(
-                  onTap: () {},
-                  leading: CircleAvatar(),
-                  title: Text("Nome do usuário"),
-                  subtitle: Text("Mensagem enviada pelo usuário"),
-                  trailing: Text("2 min."),
-                ),
-                ListTile(
-                  onTap: () {},
-                  leading: CircleAvatar(),
-                  title: Text("Nome do usuário"),
-                  subtitle: Text("Mensagem enviada pelo usuário"),
-                  trailing: Text("2 min."),                  
-                ),
-                ListTile(
-                  onTap: () {},
-                  leading: CircleAvatar(),
+                  leading: CircleAvatar(
+                    backgroundImage: NetworkImage('https://t.ctcdn.com.br/jSEs-a2AsizaO2xZCQXcdbGPZW0=/i490793.jpeg'),
+                  ),
                   title: Text("Nome do usuário"),
                   subtitle: Text("Mensagem enviada pelo usuário"),
                   trailing: Text("2 min."),
