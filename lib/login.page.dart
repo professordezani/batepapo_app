@@ -7,14 +7,20 @@ class LoginPage extends StatelessWidget {
   final TextEditingController emailCtrl = TextEditingController();
   final TextEditingController senhaCtrl = TextEditingController();
 
-  void logar(BuildContext context) async{
+  void logar(BuildContext context) async {
     
-    await _auth.signInWithEmailAndPassword(
-      email: emailCtrl.text,
-      password: senhaCtrl.text
-    );
+    try {
+      await _auth.signInWithEmailAndPassword(
+        email: emailCtrl.text,
+        password: senhaCtrl.text
+      );
 
-    Navigator.pushNamed(context, "/chat");
+      Navigator.pushNamed(context, "/chat");
+        } on FirebaseAuthException catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text(e.message ?? 'Erro ao logar.'))
+      );
+    }
   }
 
   void registrar(BuildContext context) {

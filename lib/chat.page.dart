@@ -15,7 +15,7 @@ class ChatPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(_auth.currentUser!.email ?? "Chat"),
+        title: Text(_auth.currentUser!.displayName ?? "Chat"),
         actions: [
           IconButton(
             onPressed: () => deslogar(context),
