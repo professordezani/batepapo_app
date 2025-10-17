@@ -5,12 +5,12 @@ import 'login.page.dart';
 import 'package:firebase_core/firebase_core.dart';
 
 const firebaseConfig = FirebaseOptions(
-  apiKey: "AIzaSyDW8UcIRMimMck0b4N2OEwvzQlTsHNOPZo",
-  authDomain: "batepapo-f7475.firebaseapp.com",
-  projectId: "batepapo-f7475",
-  storageBucket: "batepapo-f7475.firebasestorage.app",
-  messagingSenderId: "440327138379",
-  appId: "1:440327138379:web:779bd25ec0d4ea0ae331ce"
+  apiKey: "AIzaSyCOzKJRqepif7l_sUQWfZ31bLUmh1cuuSg",
+  authDomain: "chat-pdm-2025-01.firebaseapp.com",
+  projectId: "chat-pdm-2025-01",
+  storageBucket: "chat-pdm-2025-01.firebasestorage.app",
+  messagingSenderId: "575004777555",
+  appId: "1:575004777555:web:72f632b42fef6f3ebdfaa6"
 );
 
 void main() async{

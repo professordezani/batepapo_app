@@ -1,9 +1,11 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class ChatPage extends StatelessWidget {
-
   final FirebaseAuth _auth = FirebaseAuth.instance;
+  final FirebaseFirestore _db = FirebaseFirestore.instance;
+  final TextEditingController mensagemCtrl = TextEditingController();
 
   void deslogar(BuildContext context) {
     _auth.signOut();
@@ -19,26 +21,41 @@ class ChatPage extends StatelessWidget {
         actions: [
           IconButton(
             onPressed: () => deslogar(context),
-            icon: Icon(Icons.logout)
-          )
-        ]
+            icon: Icon(Icons.logout),
+          ),
+        ],
       ),
       body: Column(
         children: [
           Expanded(
-            child: ListView(
-              reverse: true,
-              children: [
-                ListTile(
-                  onTap: () {},
-                  leading: CircleAvatar(
-                    backgroundImage: NetworkImage('https://t.ctcdn.com.br/jSEs-a2AsizaO2xZCQXcdbGPZW0=/i490793.jpeg'),
-                  ),
-                  title: Text("Nome do usuário"),
-                  subtitle: Text("Mensagem enviada pelo usuário"),
-                  trailing: Text("2 min."),
-                ),
-              ],
+            child: StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
+              stream: _db.collection('chat').snapshots(),
+              builder: (context, snapshot) {
+                if (!snapshot.hasData) {
+                  return Text("Loading...");
+                }
+
+                var docs = snapshot.data!.docs;
+
+                return ListView(
+                  reverse: true,
+                  children:
+                      docs
+                          .map(
+                            (doc) => ListTile(
+                              leading: CircleAvatar(
+                                backgroundImage: NetworkImage(
+                                  'https://t.ctcdn.com.br/jSEs-a2AsizaO2xZCQXcdbGPZW0=/i490793.jpeg',
+                                ),
+                              ),
+                              title: Text(doc['name']),
+                              subtitle: Text(doc['message']),
+                              trailing: Text("2 min."),
+                            ),
+                          )
+                          .toList(),
+                );
+              },
             ),
           ),
           Container(
@@ -48,18 +65,23 @@ class ChatPage extends StatelessWidget {
               children: [
                 Expanded(
                   child: TextField(
-                    decoration: InputDecoration(
-                      border: OutlineInputBorder()
-                    ),
-                  )
+                    controller: mensagemCtrl,
+                    decoration: InputDecoration(border: OutlineInputBorder()),
+                  ),
                 ),
-                IconButton(
-                  onPressed: () {},
-                  icon: Icon(Icons.send),
-                ),
+                IconButton(onPressed: () {
+                  _db.collection('chat').add({
+                    'name': _auth.currentUser!.displayName,
+                    'message': mensagemCtrl.text,
+                    'uid': _auth.currentUser!.uid,
+                    'timestamp': FieldValue.serverTimestamp(),
+                  });
+                  // _db.collection('chat').doc('123').delete();
+                  // _db.collection('chat').doc('123').update({});
+                }, icon: Icon(Icons.send)),
               ],
-            )
-          )        
+            ),
+          ),
         ],
       ),
     );

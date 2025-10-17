@@ -16,7 +16,7 @@ class LoginPage extends StatelessWidget {
       );
 
       Navigator.pushNamed(context, "/chat");
-        } on FirebaseAuthException catch (e) {
+    } on FirebaseAuthException catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text(e.message ?? 'Erro ao logar.'))
       );
